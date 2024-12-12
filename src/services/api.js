@@ -1,5 +1,12 @@
+// src/api/api.js
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://67580ba260576a194d0e80b3.mockapi.io/';
+axios.defaults.baseURL = 'https://connections-api.goit.global/';
 
-export default axios;
+export const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+export const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
