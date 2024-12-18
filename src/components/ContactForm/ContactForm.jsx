@@ -1,7 +1,8 @@
+// src/components/ContactForm/ContactForm.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, fetchContacts } from '../../redux/contactsOps'; // Правильний імпорт
-import { selectContacts } from '../../redux/contacnts/selectors'; // Імпортуємо селектор коректно
+import { addContact } from '../../redux/contacts/operation';
+import { selectContacts } from '../../redux/contacts/selectors';
 import s from './ContactForm.module.css';
 
 const ContactForm = () => {
@@ -24,15 +25,13 @@ const ContactForm = () => {
 
     dispatch(addContact({ name, number }))
       .unwrap()
-      .then((newContact) => {
-        console.log('Contact added successfully:', newContact);
+      .then(() => {
+        setName('');
+        setNumber('');
       })
       .catch((error) => {
         console.error('Error adding contact:', error);
       });
-
-    setName('');
-    setNumber('');
   };
 
   return (
