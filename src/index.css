@@ -14,11 +14,11 @@
 /* Link Styles */
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #fff;
   text-decoration: none;
 }
 a:hover {
-  color: #535bf2;
+  color: #dde00c;
 }
 
 /* Body and Layout */
@@ -57,7 +57,7 @@ body {
 }
 
 .navigation a.active {
-  color: #646cff;
+  color: #dde00c;
   text-decoration: underline;
 }
 
@@ -114,7 +114,7 @@ li {
 
 .movie-list a {
   text-decoration: none;
-  color: #646cff;
+  color: #dde00c;
   font-size: 1.1em;
 }
 
@@ -133,5 +133,5 @@ li {
 
 .active {
   font-weight: bold;
-  color: blue;
+  color: #dde00c;
 }
