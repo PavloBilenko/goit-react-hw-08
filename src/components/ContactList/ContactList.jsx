@@ -1,13 +1,13 @@
 // src/components/ContactList/ContactList.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Contact from '../Contact/Contact';
 import { fetchContacts, deleteContact } from '../../redux/contacts/operation';
 import {
   selectFilteredContacts,
   selectLoading,
   selectError,
 } from '../../redux/contacts/selectors';
+import Contact from '../Contact/Contact';
 import s from './ContactList.module.css';
 
 const ContactList = () => {
@@ -20,10 +20,6 @@ const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id));
-  };
-
   return (
     <div>
       {loading && <p>Loading...</p>}
@@ -35,7 +31,7 @@ const ContactList = () => {
             id={id}
             name={name}
             number={number}
-            onDelete={() => handleDelete(id)}
+            onDelete={() => dispatch(deleteContact(id))}
           />
         ))}
       </ul>
