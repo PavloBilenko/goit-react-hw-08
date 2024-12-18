@@ -39,18 +39,18 @@ const ContactForm = () => {
         onSubmit={handleSubmit}
       >
         <Form className={s.form}>
-          <label className={s.label}>
-            <span>Name</span>
-            <Field className={s.imput} name="phonename" />
+          <label className={s.formGroup}>
+            <span className={s.Name}>Name</span>
+            <Field className={s.input} name="phonename" />
             <ErrorMessage
               name="phonename"
               component="span"
               className={s.error}
             />
           </label>
-          <label className={s.label}>
+          <label className={s.formGroup}>
             <span>Number</span>
-            <Field className={s.imput} name="phonenumber" />
+            <Field className={s.input} name="phonenumber" />
             <ErrorMessage
               name="phonenumber"
               component="span"

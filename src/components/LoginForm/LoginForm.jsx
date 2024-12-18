@@ -3,6 +3,10 @@ import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operation';
 import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import s from './LoginForm.module.css';
 
 const initialValues = {
   email: '',
@@ -10,21 +14,33 @@ const initialValues = {
 };
 export default function LoginForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const emailFieldId = nanoid();
   const passwordFieldId = nanoid();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   const handleSubmit = (values, actions) => {
     dispatch(login(values));
     actions.resetForm();
   };
+
   return (
-    <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-      <Form>
-        <label htmlFor={emailFieldId}>Email</label>
-        <Field type="email" name="email" id={emailFieldId} />
-        <label htmlFor={passwordFieldId}>Password</label>
-        <Field type="password" name="password" id={passwordFieldId} />
-        <button type="submit">Login</button>
-      </Form>
-    </Formik>
+    <div className={s.wrapper}>
+      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
+        <Form className={s.form}>
+          <label htmlFor={emailFieldId}>Email</label>
+          <Field type="email" name="email" id={emailFieldId} />
+          <label htmlFor={passwordFieldId}>Password</label>
+          <Field type="password" name="password" id={passwordFieldId} />
+          <button type="submit">Login</button>
+        </Form>
+      </Formik>
+    </div>
   );
 }

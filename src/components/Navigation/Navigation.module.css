@@ -1,12 +1,18 @@
 /* src/components/Navigation/Navigation.module.css */
 .nav {
+  background-color: #646161;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  min-width: 320px;
+}
+
+.list {
   display: flex;
   gap: 15px;
   padding: 10px;
-  background-color: #f4f4f4;
-  border-radius: 5%;
-  border-bottom: 1px solid #ccc;
-  min-width: 320px;
 }
 
 .link {

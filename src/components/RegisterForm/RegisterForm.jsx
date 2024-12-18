@@ -3,6 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operation';
+import s from './RegisterForm.module.css';
 const initialValues = {
   name: '',
   email: '',
@@ -18,17 +19,19 @@ function RegisterForm() {
     actions.resetForm();
   };
   return (
-    <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-      <Form>
-        <label htmlFor={nameFieldId}>Username</label>
-        <Field type="text" name="name" id={nameFieldId} />
-        <label htmlFor={emailFieldId}>Email</label>
-        <Field type="email" name="email" id={emailFieldId} />
-        <label htmlFor={passwordFieldId}>Password</label>
-        <Field type="password" name="password" is={passwordFieldId} />
-        <button type="submit">Register</button>
-      </Form>
-    </Formik>
+    <div className={s.wrapper}>
+      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
+        <Form className={s.form}>
+          <label htmlFor={nameFieldId}>Username</label>
+          <Field type="text" name="name" id={nameFieldId} />
+          <label htmlFor={emailFieldId}>Email</label>
+          <Field type="email" name="email" id={emailFieldId} />
+          <label htmlFor={passwordFieldId}>Password</label>
+          <Field type="password" name="password" is={passwordFieldId} />
+          <button type="submit">Register</button>
+        </Form>
+      </Formik>{' '}
+    </div>
   );
 }
 export default RegisterForm;
