@@ -1,17 +1,5 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-const contactsAPI = axios.create({
-  baseURL: 'https://connections-api.goit.global',
-});
-
-const setAuthHeader = (token) => {
-  contactsAPI.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-const clearAuthHeader = () => {
-  contactsAPI.defaults.headers.common.Authorization = '';
-};
+import { contactsAPI, setAuthHeader, clearAuthHeader } from '../api';
 
 export const register = createAsyncThunk(
   'auth/register',
