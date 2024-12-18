@@ -1,7 +1,7 @@
 // import s from "./LoginForm.module.css";
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../../redux/auth/operations';
+import { LogIn } from '../../redux/auth/operations';
 import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ export default function LoginForm() {
   }, [isLoggedIn, navigate]);
 
   const handleSubmit = (values, actions) => {
-    dispatch(logIn(values));
+    dispatch(LogIn(values));
     actions.resetForm();
   };
 

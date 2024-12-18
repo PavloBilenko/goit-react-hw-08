@@ -1,15 +1,14 @@
+Contacts operations file
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const contactsAPI = axios.create({
-  baseURL: 'https://connections-api.goit.global',
-});
+axios.defaults.baseURL = 'https://connections-api.goit.global';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {
-      const response = await contactsAPI('/contacts');
+      const response = await axios('/contacts');
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -20,7 +19,7 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, thunkAPI) => {
     try {
-      const response = await contactsAPI.post('/contacts', contact);
+      const response = await axios.post('/contacts', contact);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -31,7 +30,7 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contId, thunkAPI) => {
     try {
-      const response = await contactsAPI.delete(`/contacts/${contId}`);
+      const response = await axios.delete(/contacts/${contId});
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

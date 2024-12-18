@@ -10,7 +10,7 @@ const setAuthHeader = (token) => {
 };
 
 const clearAuthHeader = () => {
-  delete contactsAPI.defaults.headers.common.Authorization;
+  contactsAPI.defaults.headers.common.Authorization = '';
 };
 
 export const register = createAsyncThunk(
@@ -26,8 +26,8 @@ export const register = createAsyncThunk(
   },
 );
 
-export const logIn = createAsyncThunk(
-  'auth/logIn',
+export const LogIn = createAsyncThunk(
+  'auth/login',
   async (credentials, thunkAPI) => {
     try {
       const { data } = await contactsAPI.post('/users/login', credentials);
@@ -39,7 +39,7 @@ export const logIn = createAsyncThunk(
   },
 );
 
-export const logOut = createAsyncThunk('auth/logOut', async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await contactsAPI.post('/users/logout');
     clearAuthHeader();
