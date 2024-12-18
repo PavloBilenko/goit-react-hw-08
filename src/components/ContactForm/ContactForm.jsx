@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsOps';
-import { selectContacts } from '../../redux/contactsSlice';
+import { addContact, fetchContacts } from '../../redux/contactsOps'; // Правильний імпорт
+import { selectContacts } from '../../redux/contacnts/selectors'; // Імпортуємо селектор коректно
 import s from './ContactForm.module.css';
 
 const ContactForm = () => {
@@ -13,12 +13,24 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (contacts.some((contact) => contact.name === name)) {
+    if (
+      contacts.some(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase(),
+      )
+    ) {
       alert(`${name} is already in contacts`);
       return;
     }
 
-    dispatch(addContact({ name, number }));
+    dispatch(addContact({ name, number }))
+      .unwrap()
+      .then((newContact) => {
+        console.log('Contact added successfully:', newContact);
+      })
+      .catch((error) => {
+        console.error('Error adding contact:', error);
+      });
+
     setName('');
     setNumber('');
   };

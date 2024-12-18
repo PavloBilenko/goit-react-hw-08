@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Contact from '../Contact/Contact';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, deleteContact } from '../../redux/contactsOps';
+import { fetchContacts, deleteContact } from '../../redux/contacnts/operation';
 import {
   selectFilteredContacts,
   selectLoading,
