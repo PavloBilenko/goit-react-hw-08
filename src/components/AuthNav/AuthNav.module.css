@@ -1,7 +1,10 @@
 .auth{
-    
+    width: 100%;;
     display: flex;
-    gap: 20px;
+    align-items: center;
+    justify-items: center;
+    gap: 15px;
+    margin-right: 10px;
 }
 
 .nav{

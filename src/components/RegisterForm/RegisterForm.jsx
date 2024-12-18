@@ -2,7 +2,7 @@
 import { Field, Form, Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operation';
+import { register } from '../../redux/auth/operations';
 import s from './RegisterForm.module.css';
 const initialValues = {
   name: '',
