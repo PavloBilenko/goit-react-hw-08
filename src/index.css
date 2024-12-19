@@ -92,14 +92,14 @@ button {
   font-size: 1em;
   border: none;
   border-radius: 5px;
-  background-color: #646cff;
+  background-color: #007bff;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #535bf2;
+  background-color: #015fc4;
 }
 
 /* List Styles */

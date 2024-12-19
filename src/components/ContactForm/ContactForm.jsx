@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { Field, Form, Formik, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
 import { selectContacts } from '../../redux/contacts/selectors';
@@ -7,81 +7,93 @@ import toast from 'react-hot-toast';
 import s from './ContactForm.module.css';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  // Валідація
+  const initialValues = {
+    phonename: '',
+    phonenumber: '',
+  };
+
   const validationSchema = Yup.object().shape({
-    phonename: Yup.string().min(3).max(50).required('Required'),
-    phonenumber: Yup.string().min(3).max(50).required('Required'),
+    phonename: Yup.string()
+      .min(3, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    phonenumber: Yup.string()
+      .min(3, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Перевірка полів за валідаційною схемою
-    const isValidName = validationSchema.fields.phonename.isValidSync(name);
-    const isValidNumber =
-      validationSchema.fields.phonenumber.isValidSync(number);
-
-    if (!isValidName || !isValidNumber) {
-      toast.error('Please fill out the form correctly.');
-      return;
-    }
+  const handleSubmit = (values, { resetForm }) => {
+    const { phonename, phonenumber } = values;
 
     if (
       contacts.some(
         (contact) =>
-          contact.name.toLowerCase() === name.toLowerCase() ||
-          contact.number === number,
+          contact.name.toLowerCase() === phonename.toLowerCase() ||
+          contact.number === phonenumber,
       )
     ) {
       toast.error('Contact with this name or number already exists.');
       return;
     }
 
-    dispatch(addContact({ name, number }))
+    dispatch(addContact({ name: phonename, number: phonenumber }))
       .unwrap()
       .then((newContact) => {
         toast.success(`Contact ${newContact.name} added successfully!`);
+        resetForm();
       })
       .catch((error) => {
         toast.error('Error adding contact. Please try again.');
         console.error('Error adding contact:', error);
       });
-
-    setName('');
-    setNumber('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className={s.form}>
-      <label className={s.formGroup}>
-        Name
-        <input
-          className={s.input}
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label className={s.formGroup}>
-        Number
-        <input
-          className={s.input}
-          type="text"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          required
-        />
-      </label>
-      <button className={s.button} type="submit">
-        Add Contact
-      </button>
-    </form>
+    <div className={s.wrapper}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className={s.form}>
+          <label className={s.formGroup}>
+            <span className={s.text}>Name</span>
+            <Field
+              className={s.input}
+              type="text"
+              name="phonename"
+              placeholder="Enter name"
+            />
+            <ErrorMessage
+              name="phonename"
+              component="div"
+              className={s.error}
+            />
+          </label>
+          <label className={s.formGroup}>
+            <span className={s.text}>Number</span>
+            <Field
+              className={s.input}
+              type="text"
+              name="phonenumber"
+              placeholder="Enter number"
+            />
+            <ErrorMessage
+              name="phonenumber"
+              component="div"
+              className={s.error}
+            />
+          </label>
+          <button type="submit" className={s.button}>
+            Add Contact
+          </button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 
